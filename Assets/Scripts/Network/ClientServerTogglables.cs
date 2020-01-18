@@ -1,22 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BeardedManStudios.Forge.Networking.Unity;
 
 public class ClientServerTogglables : MonoBehaviour
 {
     [Header("Local References")]
-    public GameObject m_LocalTogglable;
-    public Component[] m_LocalTogglableScripts;
+    [SerializeField]
+    private GameObject m_LocalTogglable;
+    [SerializeField]
+    private Component[] m_LocalTogglableScripts;
 
     [Header("Network References")]
-    public GameObject m_NetworkTogglable;
-    public Component[] m_NetworkTogglableScripts;
+    [SerializeField]
+    private GameObject m_NetworkTogglable;
+    [SerializeField]
+    private Component[] m_NetworkTogglableScripts;
 
-    void Start()
+    public void Init(bool isOwner)
     {
-        // TODO: Replace this with is owner check on network manager
-        bool isOwner = false;
-
         if (isOwner)
             Destroy(m_NetworkTogglable);
         else
@@ -27,7 +29,7 @@ public class ClientServerTogglables : MonoBehaviour
             if (!isOwner)
                 Destroy(script);
         }
-        
+
         foreach (Component script in m_NetworkTogglableScripts)
         {
             if (isOwner)

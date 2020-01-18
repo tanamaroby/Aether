@@ -23,6 +23,8 @@ public class PlayerMovement : MonoBehaviour
 
     private CharacterController m_CharacterController;
 
+    private PlayerNetworkHandler m_PlayerNetworkHandler;
+
     private Vector3 m_Velocity;
 
     private float m_PlayerHeight;
@@ -37,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         m_CharacterController = GetComponent<CharacterController>();
+        m_PlayerNetworkHandler = GetComponent<PlayerNetworkHandler>();
         m_PlayerHeight = m_CharacterController.height;
     }
 
@@ -92,6 +95,9 @@ public class PlayerMovement : MonoBehaviour
             m_CharacterController.height = m_PlayerHeight / 2;
         else
             m_CharacterController.height = m_PlayerHeight;
+
+        if (m_PlayerNetworkHandler.networkObject != null)
+            m_PlayerNetworkHandler.networkObject.position = transform.position;
     }
 
     public float GetAbsInput()

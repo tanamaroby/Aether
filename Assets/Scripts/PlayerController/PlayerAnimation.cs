@@ -13,9 +13,12 @@ public class PlayerAnimation : MonoBehaviour
 
     private PlayerMovement m_PlayerMovement;
 
+    private PlayerNetworkHandler m_PlayerNetworkHandler;
+
     void Start()
     {
         m_PlayerMovement = GetComponent<PlayerMovement>();
+        m_PlayerNetworkHandler = GetComponent<PlayerNetworkHandler>();
     }
 
     void Update()
@@ -25,15 +28,22 @@ public class PlayerAnimation : MonoBehaviour
 
         if (worldVelocity > 0.01f)
             m_Animator.speed = m_AnimationSpeedCurve.Evaluate(worldVelocity); // Make running animation speed match actual movement speed
-        else 
+        else
             m_Animator.speed = 1;
 
         Vector3 movementDir = m_PlayerMovement.GetMovementDirection();
         if (movementDir.magnitude > 0.01f)
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movementDir), Time.deltaTime * 10);
 
-        m_Animator.SetBool("Grounded", m_PlayerMovement.GetIsGrounded());
+        bool isGrounded = m_PlayerMovement.GetIsGrounded();
+        m_Animator.SetBool("Grounded", isGrounded);
         if (m_PlayerMovement.GetJumpedInCurrentFrame())
             m_Animator.SetTrigger("Jumped");
+
+        if (m_PlayerNetworkHandler.networkObject != null) {
+            m_PlayerNetworkHandler.networkObject.velocity = worldVelocity;
+            m_PlayerNetworkHandler.networkObject.rotation = transform.rotation;
+            m_PlayerNetworkHandler.networkObject.grounded = isGrounded;
+        }
     }
 }
