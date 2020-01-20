@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2106d4aad5a46b488255c0a88cc1fa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Animator: {fileID: 0}
+  m_Animator: {fileID: 8624553958315258643}
   m_AnimationSpeedCurve:
     serializedVersion: 2
     m_Curve:
@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20b9b750bc1bc45a1828c851bfaf75d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Animator: {fileID: 0}
+  m_Animator: {fileID: 8645355789856485255}
   m_AnimationSpeedCurve:
     serializedVersion: 2
     m_Curve:
@@ -346,6 +346,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1617098604614516792}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &8624553958315258643 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7044057242173567787, guid: 1fd3eb28b928bb94d9523b2e9a6d4c13,
+    type: 3}
+  m_PrefabInstance: {fileID: 1617098604614516792}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2388793468936199026 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3987838084952824650, guid: 1fd3eb28b928bb94d9523b2e9a6d4c13,
@@ -430,6 +436,12 @@ GameObject:
 --- !u!4 &7853449080663565546 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4517817143961131543, guid: 24f7fa06513656c42ad280e1e5cb14da,
+    type: 3}
+  m_PrefabInstance: {fileID: 5931113809395121917}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &8645355789856485255 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2717348279593193850, guid: 24f7fa06513656c42ad280e1e5cb14da,
     type: 3}
   m_PrefabInstance: {fileID: 5931113809395121917}
   m_PrefabAsset: {fileID: 0}

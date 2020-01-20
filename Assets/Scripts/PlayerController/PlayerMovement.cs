@@ -88,6 +88,9 @@ public class PlayerMovement : MonoBehaviour
 
         m_Velocity.y += m_Gravity * Time.deltaTime;
         m_CharacterController.Move(m_Velocity * Time.deltaTime);
+
+        if (m_PlayerNetworkHandler.networkObject != null)
+            m_PlayerNetworkHandler.networkObject.position = transform.position;
     }
 
     public float GetAbsInput()

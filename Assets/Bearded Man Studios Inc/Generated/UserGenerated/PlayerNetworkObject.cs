@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace BeardedManStudios.Forge.Networking.Generated
 {
-	[GeneratedInterpol("{\"inter\":[0.15,0.15,0.15,0.15,0]")]
+	[GeneratedInterpol("{\"inter\":[0.15,0.15,0.15,0,0]")]
 	public partial class PlayerNetworkObject : NetworkObject
 	{
 		public const int IDENTITY = 7;
@@ -111,7 +111,7 @@ namespace BeardedManStudios.Forge.Networking.Generated
 		[ForgeGeneratedField]
 		private float _vertVelocity;
 		public event FieldEvent<float> vertVelocityChanged;
-		public InterpolateFloat vertVelocityInterpolation = new InterpolateFloat() { LerpT = 0.15f, Enabled = true };
+		public InterpolateFloat vertVelocityInterpolation = new InterpolateFloat() { LerpT = 0f, Enabled = false };
 		public float vertVelocity
 		{
 			get { return _vertVelocity; }
