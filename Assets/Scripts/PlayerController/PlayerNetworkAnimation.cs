@@ -23,15 +23,14 @@ public class PlayerNetworkAnimation : MonoBehaviour
             return;
 
         float worldVelocity = m_PlayerNetworkHandler.networkObject.velocity;
+        transform.rotation = m_PlayerNetworkHandler.networkObject.rotation;
         m_Animator.SetFloat("Velocity", worldVelocity);
+        m_Animator.SetFloat("VerticalVelocity", m_PlayerNetworkHandler.networkObject.vertVelocity);
+        m_Animator.SetBool("Grounded", m_PlayerNetworkHandler.networkObject.grounded);
 
         if (worldVelocity > 0.01f)
             m_Animator.speed = m_AnimationSpeedCurve.Evaluate(worldVelocity); // Make running animation speed match actual movement speed
         else
             m_Animator.speed = 1;
-
-        transform.rotation = m_PlayerNetworkHandler.networkObject.rotation;
-
-        m_Animator.SetBool("Grounded", m_PlayerNetworkHandler.networkObject.grounded);
     }
 }

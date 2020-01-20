@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace BeardedManStudios.Forge.Networking.Generated
 {
-	[GeneratedInterpol("{\"inter\":[0.15,0.15,0.15,0]")]
+	[GeneratedInterpol("{\"inter\":[0.15,0.15,0.15,0.15,0]")]
 	public partial class PlayerNetworkObject : NetworkObject
 	{
 		public const int IDENTITY = 7;
@@ -109,6 +109,37 @@ namespace BeardedManStudios.Forge.Networking.Generated
 			if (fieldAltered != null) fieldAltered("velocity", _velocity, timestep);
 		}
 		[ForgeGeneratedField]
+		private float _vertVelocity;
+		public event FieldEvent<float> vertVelocityChanged;
+		public InterpolateFloat vertVelocityInterpolation = new InterpolateFloat() { LerpT = 0.15f, Enabled = true };
+		public float vertVelocity
+		{
+			get { return _vertVelocity; }
+			set
+			{
+				// Don't do anything if the value is the same
+				if (_vertVelocity == value)
+					return;
+
+				// Mark the field as dirty for the network to transmit
+				_dirtyFields[0] |= 0x8;
+				_vertVelocity = value;
+				hasDirtyFields = true;
+			}
+		}
+
+		public void SetvertVelocityDirty()
+		{
+			_dirtyFields[0] |= 0x8;
+			hasDirtyFields = true;
+		}
+
+		private void RunChange_vertVelocity(ulong timestep)
+		{
+			if (vertVelocityChanged != null) vertVelocityChanged(_vertVelocity, timestep);
+			if (fieldAltered != null) fieldAltered("vertVelocity", _vertVelocity, timestep);
+		}
+		[ForgeGeneratedField]
 		private bool _grounded;
 		public event FieldEvent<bool> groundedChanged;
 		public Interpolated<bool> groundedInterpolation = new Interpolated<bool>() { LerpT = 0f, Enabled = false };
@@ -122,7 +153,7 @@ namespace BeardedManStudios.Forge.Networking.Generated
 					return;
 
 				// Mark the field as dirty for the network to transmit
-				_dirtyFields[0] |= 0x8;
+				_dirtyFields[0] |= 0x10;
 				_grounded = value;
 				hasDirtyFields = true;
 			}
@@ -130,7 +161,7 @@ namespace BeardedManStudios.Forge.Networking.Generated
 
 		public void SetgroundedDirty()
 		{
-			_dirtyFields[0] |= 0x8;
+			_dirtyFields[0] |= 0x10;
 			hasDirtyFields = true;
 		}
 
@@ -151,6 +182,7 @@ namespace BeardedManStudios.Forge.Networking.Generated
 			positionInterpolation.current = positionInterpolation.target;
 			rotationInterpolation.current = rotationInterpolation.target;
 			velocityInterpolation.current = velocityInterpolation.target;
+			vertVelocityInterpolation.current = vertVelocityInterpolation.target;
 			groundedInterpolation.current = groundedInterpolation.target;
 		}
 
@@ -161,6 +193,7 @@ namespace BeardedManStudios.Forge.Networking.Generated
 			UnityObjectMapper.Instance.MapBytes(data, _position);
 			UnityObjectMapper.Instance.MapBytes(data, _rotation);
 			UnityObjectMapper.Instance.MapBytes(data, _velocity);
+			UnityObjectMapper.Instance.MapBytes(data, _vertVelocity);
 			UnityObjectMapper.Instance.MapBytes(data, _grounded);
 
 			return data;
@@ -180,6 +213,10 @@ namespace BeardedManStudios.Forge.Networking.Generated
 			velocityInterpolation.current = _velocity;
 			velocityInterpolation.target = _velocity;
 			RunChange_velocity(timestep);
+			_vertVelocity = UnityObjectMapper.Instance.Map<float>(payload);
+			vertVelocityInterpolation.current = _vertVelocity;
+			vertVelocityInterpolation.target = _vertVelocity;
+			RunChange_vertVelocity(timestep);
 			_grounded = UnityObjectMapper.Instance.Map<bool>(payload);
 			groundedInterpolation.current = _grounded;
 			groundedInterpolation.target = _grounded;
@@ -198,6 +235,8 @@ namespace BeardedManStudios.Forge.Networking.Generated
 			if ((0x4 & _dirtyFields[0]) != 0)
 				UnityObjectMapper.Instance.MapBytes(dirtyFieldsData, _velocity);
 			if ((0x8 & _dirtyFields[0]) != 0)
+				UnityObjectMapper.Instance.MapBytes(dirtyFieldsData, _vertVelocity);
+			if ((0x10 & _dirtyFields[0]) != 0)
 				UnityObjectMapper.Instance.MapBytes(dirtyFieldsData, _grounded);
 
 			// Reset all the dirty fields
@@ -256,6 +295,19 @@ namespace BeardedManStudios.Forge.Networking.Generated
 			}
 			if ((0x8 & readDirtyFlags[0]) != 0)
 			{
+				if (vertVelocityInterpolation.Enabled)
+				{
+					vertVelocityInterpolation.target = UnityObjectMapper.Instance.Map<float>(data);
+					vertVelocityInterpolation.Timestep = timestep;
+				}
+				else
+				{
+					_vertVelocity = UnityObjectMapper.Instance.Map<float>(data);
+					RunChange_vertVelocity(timestep);
+				}
+			}
+			if ((0x10 & readDirtyFlags[0]) != 0)
+			{
 				if (groundedInterpolation.Enabled)
 				{
 					groundedInterpolation.target = UnityObjectMapper.Instance.Map<bool>(data);
@@ -288,6 +340,11 @@ namespace BeardedManStudios.Forge.Networking.Generated
 			{
 				_velocity = (float)velocityInterpolation.Interpolate();
 				//RunChange_velocity(velocityInterpolation.Timestep);
+			}
+			if (vertVelocityInterpolation.Enabled && !vertVelocityInterpolation.current.UnityNear(vertVelocityInterpolation.target, 0.0015f))
+			{
+				_vertVelocity = (float)vertVelocityInterpolation.Interpolate();
+				//RunChange_vertVelocity(vertVelocityInterpolation.Timestep);
 			}
 			if (groundedInterpolation.Enabled && !groundedInterpolation.current.UnityNear(groundedInterpolation.target, 0.0015f))
 			{
