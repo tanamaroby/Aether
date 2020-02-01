@@ -28,7 +28,6 @@ public class PlayerMovement : MonoBehaviour
     private float m_JumpHeight = 1.3f;
 
     private CharacterController m_CharacterController;
-    private TextChanger m_textChanger;
     private PowerUpsManager m_PowerUps; 
     private VelocityModifier m_VelocityModifier; 
 
@@ -48,7 +47,6 @@ public class PlayerMovement : MonoBehaviour
     {
         AetherInput.GetPlayerActions().Jump.performed += HandleJump;
         m_CharacterController = GetComponent<CharacterController>();
-        m_textChanger = GetComponent<TextChanger>();
         m_PowerUps = GetComponent<PowerUpsManager>();
         m_VelocityModifier = GetComponent<VelocityModifier>();
     }
