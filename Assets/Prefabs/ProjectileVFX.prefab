@@ -4918,9 +4918,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6816730816983008442}
-  - component: {fileID: 1213702262631591851}
   - component: {fileID: 4660658698205716232}
-  - component: {fileID: 4085730107125752120}
+  - component: {fileID: 2661812151097080985}
+  - component: {fileID: 1099050053167184889}
+  - component: {fileID: 5977466498360814797}
   m_Layer: 0
   m_Name: ProjectileVFX
   m_TagString: Untagged
@@ -4945,24 +4946,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1213702262631591851
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8174114879197310186}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4536c2dad9f9aa647acb415cf53cee5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 20
-  firerate: 2
-  muzzlePrefab: {fileID: 7078515813646659143, guid: 43dead5d20c9f4543b456f236fb41e32,
-    type: 3}
-  hitPrefab: {fileID: 3379398940053311154, guid: 98282f30b1267b648a6da8efefdf1b79,
-    type: 3}
 --- !u!65 &4660658698205716232
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4971,12 +4954,39 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8174114879197310186}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &4085730107125752120
+--- !u!114 &2661812151097080985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8174114879197310186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a23ddf69f9da07740971e2d8857458fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
+--- !u!114 &1099050053167184889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8174114879197310186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e07f6087184588e43a26d82c1aaae52f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitPrefab: {fileID: 3379398940053311154, guid: 98282f30b1267b648a6da8efefdf1b79,
+    type: 3}
+--- !u!54 &5977466498360814797
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
