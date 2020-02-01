@@ -28,6 +28,9 @@ public class PlayerMovement : MonoBehaviour
     private float m_JumpHeight = 1.3f;
 
     private CharacterController m_CharacterController;
+    private TextChanger m_textChanger;
+    private PowerUpsManager m_PowerUps; 
+    private VelocityModifier m_VelocityModifier; 
 
     private Vector3 m_Velocity;
     private Vector2 m_LastKnownInput;
@@ -37,11 +40,17 @@ public class PlayerMovement : MonoBehaviour
     private float m_LandingTime = 0;
     private bool m_IsMidAir;
     private bool m_JumpedInCurrentFrame;
+    private bool m_canDoubleSpeed;
+    private bool m_canDoubleJump;
+    private bool m_hasFlag;
 
     void Start()
     {
         AetherInput.GetPlayerActions().Jump.performed += HandleJump;
         m_CharacterController = GetComponent<CharacterController>();
+        m_textChanger = GetComponent<TextChanger>();
+        m_PowerUps = GetComponent<PowerUpsManager>();
+        m_VelocityModifier = GetComponent<VelocityModifier>();
     }
 
     // Update is called once per frame
@@ -70,7 +79,16 @@ public class PlayerMovement : MonoBehaviour
 
         float t = Time.deltaTime;
         float t2 = t * t;
-        m_CharacterController.Move(new Vector3(m_Velocity.x, m_Velocity.y * t + 0.5f * GetGravityMagnitude() * t2, m_Velocity.z));
+
+        float xVelocity = m_Velocity.x;
+        float yVelocity = m_Velocity.y * t + 0.5f * GetGravityMagnitude() * t2; 
+        float zVelocity = m_Velocity.z;
+
+        xVelocity = m_VelocityModifier.ModifyXVelocity(xVelocity, m_PowerUps);
+        yVelocity = m_VelocityModifier.ModifyYVelocity(yVelocity, m_PowerUps);
+        zVelocity = m_VelocityModifier.ModifyZVelocity(zVelocity, m_PowerUps);
+
+        m_CharacterController.Move(new Vector3(xVelocity, yVelocity, zVelocity));
     }
 
     private void LateUpdate()
